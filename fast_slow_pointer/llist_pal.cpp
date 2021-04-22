@@ -1,3 +1,4 @@
+#include <iostream>
 
 struct ListNode {
     int val;
@@ -15,12 +16,13 @@ class Solution {
         }
 
         ListNode* next = head->next;
-        ListNode* new_head = reverseList(head->next);
+        ListNode* new_head = reverseList(next);
         next->next = head;
         head->next = NULL;
 
         return new_head;
     }
+
     bool isPalindrome(ListNode* head) {
         ListNode *sptr = head, *fptr = head;
 
@@ -31,17 +33,12 @@ class Solution {
 
         fptr = reverseList(sptr);
         sptr = head;
-        while (sptr && sptr == fptr) {
+        while (fptr) {
+            if (fptr->val != sptr->val) return false;
             sptr = sptr->next;
             fptr = fptr->next;
         }
 
-        if (sptr) {
-            return false;
-        } else {
-            return true;
-        }
-
-        return false;
+        return true;
     }
 };
